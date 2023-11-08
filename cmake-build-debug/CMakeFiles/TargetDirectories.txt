@@ -1,0 +1,3 @@
+/home/sevastian/CLionProjects/Protei/CallCenter/cmake-build-debug/CMakeFiles/CallCenter.dir
+/home/sevastian/CLionProjects/Protei/CallCenter/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/sevastian/CLionProjects/Protei/CallCenter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
