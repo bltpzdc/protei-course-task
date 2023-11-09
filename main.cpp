@@ -1,6 +1,8 @@
 #include <iostream>
+#include "include/config.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+int main()
+{
+    Config& config = Config::getInstance();
+    std::cout << config.getQLen() << std::endl;
 }
