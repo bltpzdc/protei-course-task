@@ -9,14 +9,17 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <boost/log/trivial.hpp>
+#include "JsonReader.h"
+#include "JsonReaderImpl.h"
 
 using json = nlohmann::json;
 
 class Config{
     bool isInitialized = false;
+    const JsonReader &jsonReader;
     unsigned int qLen;
 
-    Config() = default;
+    explicit Config(const JsonReaderImpl *jsonReader): jsonReader(*jsonReader) {};
     void init();
 
 public:

@@ -5,19 +5,16 @@
 #include "../include/Config.h"
 
 void Config::init() {
-    std::fstream fs;
-    fs.open("./../config.json");
-    json data = json::parse(fs);
+    json data = jsonReader.readFile("./../config.json");
     qLen = data["pi"];
-    fs.close();
 }
 
 Config& Config::getInstance(){
-    static Config instance;
+    static Config instance(new JsonReaderImpl());
     if (!instance.isInitialized) {
         instance.init();
         instance.isInitialized = true;
-        BOOST_LOG_TRIVIAL(info) << "Config has been initialized";
+        BOOST_LOG_TRIVIAL(info) << "Config initialization: success";
     }
     return instance;
 }

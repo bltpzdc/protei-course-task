@@ -14,8 +14,8 @@ using json = nlohmann::json;
 
 class JsonReader {
 public:
-    virtual json readFile(const std::string &filename) = 0;
-    virtual json readRaw(const std::string &string) = 0;
+    virtual json readFile(const std::string &filename) const = 0;
+    virtual json readRaw(const std::string &string) const = 0;
     virtual ~JsonReader() = default;
 };
 
