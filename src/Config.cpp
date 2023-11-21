@@ -2,19 +2,22 @@
 // Created by sevastian on 08.11.23.
 //
 
-#include "../include/config.h"
+#include "../include/Config.h"
 
 void Config::init() {
-    std::ifstream in("config.json");
-    json data = json::parse(in);
+    std::fstream fs;
+    fs.open("./../config.json");
+    json data = json::parse(fs);
     qLen = data["pi"];
-    in.close();
+    fs.close();
 }
 
 Config& Config::getInstance(){
     static Config instance;
     if (!instance.isInitialized) {
         instance.init();
+        instance.isInitialized = true;
+        BOOST_LOG_TRIVIAL(info) << "Config has been initialized";
     }
     return instance;
 }

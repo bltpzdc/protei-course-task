@@ -1,5 +1,6 @@
 [requires]
 nlohmann_json/3.10.4
+boost/1.75.0
 
 [generators]
 CMakeDeps

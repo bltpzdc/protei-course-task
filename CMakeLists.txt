@@ -3,12 +3,18 @@ project(CallCenter)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(nlohmann_json 3.2.0 REQUIRED)
+find_package(nlohmann_json REQUIRED)
+find_package(Boost REQUIRED)
 
 add_executable(CallCenter main.cpp
-        include/config.h
-        src/config.cpp
+        include/Config.h
+        src/Config.cpp
 )
 
-target_link_libraries(CallCenter PRIVATE nlohmann_json::nlohmann_json)
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+endif()
+
+target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 

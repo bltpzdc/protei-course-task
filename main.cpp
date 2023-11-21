@@ -1,8 +1,7 @@
 #include <iostream>
-#include "include/config.h"
+#include "include/Config.h"
 
 int main()
 {
-    Config& config = Config::getInstance();
-    std::cout << config.getQLen() << std::endl;
+        Config &config = Config::getInstance();
 }

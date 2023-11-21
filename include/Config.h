@@ -8,6 +8,8 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <boost/log/trivial.hpp>
+
 using json = nlohmann::json;
 
 class Config{
@@ -22,7 +24,7 @@ public:
     void operator=(const Config&) = delete;
 
     static Config& getInstance();
-    unsigned int getQLen() const {
+    [[nodiscard]] unsigned int getQLen() const {
         return qLen;
     }
 };
