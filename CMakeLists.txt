@@ -9,6 +9,9 @@ find_package(Boost REQUIRED)
 add_executable(CallCenter main.cpp
         include/Config.h
         src/Config.cpp
+        src/NoSuchFileException.cpp
+        src/PhoneHttpController.cpp
+        src/JsonReaderImpl.cpp
 )
 
 if(Boost_FOUND)

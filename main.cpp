@@ -1,4 +1,5 @@
 #include "include/Config.h"
+#include "include/PhoneHttpController.h"
 
 int main()
 {
@@ -11,5 +12,7 @@ int main()
         BOOST_LOG_TRIVIAL(error) << e.getMessage();
         return -1;
     }
+    auto *controller = new PhoneHttpController();
+    controller->listenGet();
     return 0;
 }
