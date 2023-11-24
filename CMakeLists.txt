@@ -10,8 +10,9 @@ add_executable(CallCenter main.cpp
         include/Config.h
         src/Config.cpp
         src/NoSuchFileException.cpp
-        src/PhoneHttpController.cpp
+        src/CallHttpController.cpp
         src/JsonReaderImpl.cpp
+        src/CallServiceImpl.cpp
 )
 
 if(Boost_FOUND)

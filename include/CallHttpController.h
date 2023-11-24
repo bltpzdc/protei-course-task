@@ -6,13 +6,14 @@
 #define CALLCENTER_PHONECONTROLLER_H
 
 #include "./HttpController.h"
+#include "CallServiceImpl.h"
 
-class PhoneHttpController : public HttpController {
-    //TODO service
+class CallHttpController : public HttpController {
     crow::SimpleApp app;
+    const CallService &service;
 
 public:
-    PhoneHttpController(/*TODO service DI*/) = default;
+    explicit CallHttpController(CallService &service): service(service) {};
 
     void listenGet() override;
     void listenPost() override;

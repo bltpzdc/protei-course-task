@@ -2,11 +2,12 @@
 // Created by sevastian on 23.11.23.
 //
 
-#include "../include/PhoneHttpController.h"
+#include "../include/CallHttpController.h"
+#include "../include/CallInfo.h"
 
-void PhoneHttpController::listenGet() {
+void CallHttpController::listenGet() {
     CROW_ROUTE(app, "/")
-            ([](const crow::request &req) {
+            ([this](const crow::request &req) {
                 std::string number;
                 try {
                     number = std::string(req.url_params.get("phoneNumber"));
@@ -15,6 +16,7 @@ void PhoneHttpController::listenGet() {
                 }
                 if (number.empty())
                     return crow::response(400, "Phone number can not be an empty value");
+                service.addCall(number);
                 return crow::response(200, "Ok");
             });
 
@@ -23,8 +25,6 @@ void PhoneHttpController::listenGet() {
 
 // Stubs for unused methods
 // Can be refactored in next ver
-void PhoneHttpController::listenPost() {}
-
-void PhoneHttpController::listenPut() {}
-
-void PhoneHttpController::listenDelete() {}
+void CallHttpController::listenPost() {}
+void CallHttpController::listenPut() {}
+void CallHttpController::listenDelete() {}
