@@ -12,11 +12,17 @@ void CallHttpController::listenGet() {
                 try {
                     number = std::string(req.url_params.get("phoneNumber"));
                 } catch (std::exception e) {
+                    BOOST_LOG_TRIVIAL(info) << "Controller: request was rejected because of empty number";
                     return crow::response(400, "Phone number must be specified in query parameters");
                 }
-                if (number.empty())
+                if (number.empty()) {
+                    BOOST_LOG_TRIVIAL(info) << "Controller: request was rejected because of empty number";
                     return crow::response(400, "Phone number can not be an empty value");
-                if (!service.addCall(number)) return crow::response(503, "Queue is full");
+                }
+                BOOST_LOG_TRIVIAL(info) << "Controller: got request with number " << number;
+                if (!service.handleCall(number)) {
+                    return crow::response(503, "Queue is full");
+                }
                 return crow::response(200, "Ok");
             });
 

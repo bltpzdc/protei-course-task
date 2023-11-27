@@ -9,6 +9,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <boost/log/trivial.hpp>
+#include <ctime>
 #include "JsonReader.h"
 #include "JsonReaderImpl.h"
 
@@ -17,7 +18,10 @@ using json = nlohmann::json;
 class Config{
     bool isInitialized = false;
     const JsonReader &jsonReader;
-    unsigned int qLen;
+    uint32_t qLen;
+    std::time_t randomExpirationTimeMin;
+    std::time_t randomExpirationTimeMax;
+
 
     explicit Config(const JsonReaderImpl *jsonReader): jsonReader(*jsonReader) {};
     void init();
@@ -27,9 +31,10 @@ public:
     void operator=(const Config&) = delete;
 
     static Config& getInstance();
-    [[nodiscard]] unsigned int getQLen() const {
-        return qLen;
-    }
+
+    [[nodiscard]] uint32_t getQLen() const;
+    [[nodiscard]] std::time_t getRandomExpirationTimeMin() const;
+    [[nodiscard]] std::time_t getRandomExpirationTimeMax() const;
 };
 
 #endif //CALLCENTER_CONFIG_H

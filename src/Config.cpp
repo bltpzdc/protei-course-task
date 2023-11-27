@@ -6,7 +6,10 @@
 
 void Config::init() {
     json data = jsonReader.readFile("./../config.json");
-    qLen = data["pi"];
+    qLen = data["queue_length"];
+    randomExpirationTimeMin = data["expire_random_min"];
+    randomExpirationTimeMax = data["expire_random_max"];
+    std::cout << qLen << " " << randomExpirationTimeMin << " " << randomExpirationTimeMax << std::endl;
 }
 
 Config& Config::getInstance(){
@@ -17,4 +20,17 @@ Config& Config::getInstance(){
         BOOST_LOG_TRIVIAL(info) << "Config initialization: success";
     }
     return instance;
+}
+
+uint32_t Config::getQLen() const {
+    return qLen;
+}
+
+
+std::time_t Config::getRandomExpirationTimeMin() const {
+    return randomExpirationTimeMin;
+}
+
+std::time_t Config::getRandomExpirationTimeMax() const {
+    return randomExpirationTimeMax;
 }

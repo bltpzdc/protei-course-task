@@ -6,6 +6,7 @@
 
 bool CallQueue::tryPush(CallInfo &callInfo) {
     if (queue->size() >= maxSize) return false;
+    callInfo.status = CallStatus::READY;
     queue->push_back(callInfo);
     return true;
 }
@@ -20,3 +21,6 @@ CallInfo &CallQueue::pop() {
     return callInfo;
 }
 
+std::list<CallInfo> &CallQueue::getQueue() {
+    return *queue;
+}

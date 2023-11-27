@@ -5,7 +5,6 @@
 #include <thread>
 
 void print(const CallQueue *queue) {
-    std::cout << queue << std::endl;
     while (true) {
         std::cout << queue->size() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
@@ -26,9 +25,10 @@ int main()
     auto *queue = new CallQueue(Config::getInstance().getQLen());
     auto *service = new CallServiceImpl(*queue);
     auto *controller = new CallHttpController(*service);
+    std::thread timeoutHandler(std::bind(&CallServiceImpl::handleCleanExpired, service));
     std::thread t1(std::bind(print, queue));
-    std::cout << queue << std::endl;
     controller->listenGet();
     t1.detach();
+    timeoutHandler.detach();
     return 0;
 }

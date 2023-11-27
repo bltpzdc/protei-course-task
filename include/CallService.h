@@ -9,7 +9,8 @@
 
 class CallService {
 public:
-    virtual bool addCall(std::string &number) = 0;
+    virtual bool handleCall(std::string &number) = 0;
+    virtual void handleCleanExpired() = 0;
     virtual void service() = 0;
     virtual ~CallService() = default;
 };

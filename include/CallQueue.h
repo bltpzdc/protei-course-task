@@ -21,6 +21,7 @@ public:
     bool tryPush(CallInfo &callInfo);
     uint32_t size() const;
     CallInfo& pop();
+    std::list<CallInfo> &getQueue();
 };
 
 #endif //CALLCENTER_CALLQUEUE_H

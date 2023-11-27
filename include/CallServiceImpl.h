@@ -11,11 +11,13 @@
 
 class CallServiceImpl : public CallService {
     CallQueue queue;
+    static uint64_t idGen;
 
 public:
     explicit CallServiceImpl(CallQueue &queue): queue(queue) {};
 
-    bool addCall(std::string &number) override;
+    bool handleCall(std::string &number) override;
+    void handleCleanExpired() override;
     void service() override;
 };
 
