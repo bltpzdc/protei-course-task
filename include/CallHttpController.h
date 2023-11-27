@@ -10,7 +10,7 @@
 
 class CallHttpController : public HttpController {
     crow::SimpleApp app;
-    const CallService &service;
+    CallService &service;
 
 public:
     explicit CallHttpController(CallService &service): service(service) {};

@@ -4,12 +4,12 @@
 
 #include "../include/CallServiceImpl.h"
 
-CallInfo &CallServiceImpl::addCall(std::string &number) const {
-    auto *callInfo = new CallInfo(number);
-    return *callInfo;
+bool CallServiceImpl::addCall(std::string &number) {
+    CallInfo callInfo(number);
+    return queue.tryPush(callInfo);
 }
 
-void CallServiceImpl::service() const {
+void CallServiceImpl::service() {
     while (true) {
         //do nothing
     }

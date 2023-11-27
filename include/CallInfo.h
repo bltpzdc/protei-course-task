@@ -76,6 +76,7 @@ struct CallInfo {
     Duration duration;
 
     CallInfo(std::string &number) {
+        status = CallStatus::OK;
         this->number = Number(number);
     }
     CallInfo() = default;

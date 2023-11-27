@@ -6,11 +6,17 @@
 #define CALLCENTER_CALLSERVICEIMPL_H
 
 #include "CallService.h"
+#include "CallQueue.h"
+#include <list>
 
 class CallServiceImpl : public CallService {
+    CallQueue queue;
+
 public:
-    CallInfo& addCall(std::string &number) const override;
-    void service() const override;
+    explicit CallServiceImpl(CallQueue &queue): queue(queue) {};
+
+    bool addCall(std::string &number) override;
+    void service() override;
 };
 
 #endif //CALLCENTER_CALLSERVICEIMPL_H

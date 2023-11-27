@@ -16,7 +16,7 @@ void CallHttpController::listenGet() {
                 }
                 if (number.empty())
                     return crow::response(400, "Phone number can not be an empty value");
-                service.addCall(number);
+                if (!service.addCall(number)) return crow::response(503, "Queue is full");
                 return crow::response(200, "Ok");
             });
 
