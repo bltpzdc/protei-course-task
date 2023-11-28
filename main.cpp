@@ -1,5 +1,6 @@
 #include "include/Config.h"
 #include "include/CallHttpController.h"
+#include "include/CDRWriterImpl.h"
 
 #include <chrono>
 #include <thread>
@@ -23,7 +24,8 @@ int main()
         return -1;
     }
     auto *queue = new CallQueue(Config::getInstance().getQLen());
-    auto *service = new CallServiceImpl(*queue);
+    auto *cdrWriter = new CDRWriterImpl("../cdr.txt");
+    auto *service = new CallServiceImpl(*queue, *cdrWriter);
     auto *controller = new CallHttpController(*service);
     std::thread timeoutHandler(std::bind(&CallServiceImpl::handleCleanExpired, service));
     std::thread t1(std::bind(print, queue));

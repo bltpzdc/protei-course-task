@@ -14,6 +14,7 @@ add_executable(CallCenter main.cpp
         src/JsonReaderImpl.cpp
         src/CallServiceImpl.cpp
         src/CallQueue.cpp
+        src/CDRWriterImpl.cpp
 )
 
 if(Boost_FOUND)

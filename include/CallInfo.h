@@ -50,6 +50,11 @@ struct EndTime : public AbstractTime {
         this->time = val + distribution(gen);
         return *this;
     }
+
+    EndTime &operator=(const IncomeTime val) {
+        this->time = val.time;
+        return *this;
+    }
 };
 
 struct AnswerTime : public AbstractTime {
@@ -122,14 +127,14 @@ struct Duration {
 };
 
 struct CallInfo {
-    IncomeTime incomeDt;
-    CallID callId;
-    Number number;
-    EndTime endDt;
-    CallStatus status;
-    AnswerTime operatorAnswerDt;
-    OperatorID operatorId;
-    Duration duration;
+    IncomeTime incomeDt{};
+    CallID callId{};
+    Number number{};
+    EndTime endDt{};
+    CallStatus status{};
+    AnswerTime operatorAnswerDt{};
+    OperatorID operatorId{};
+    Duration duration{};
 
     CallInfo() = default;
 

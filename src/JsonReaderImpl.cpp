@@ -11,7 +11,7 @@ json JsonReaderImpl::readFile(const std::string &filename) const {
         throw NoSuchFileException("JsonReaderImpl: can not find or read file ", filename);
     json data = json::parse(fs);
     fs.close();
-    BOOST_LOG_TRIVIAL(info) << "JsonReaderImpl: successfully read " + filename;
+    BOOST_LOG_TRIVIAL(info) << "JsonReaderImpl: successfully read " << filename;
     return data;
 }
 

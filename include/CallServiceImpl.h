@@ -7,14 +7,16 @@
 
 #include "CallService.h"
 #include "CallQueue.h"
+#include "CDRWriterImpl.h"
 #include <list>
 
 class CallServiceImpl : public CallService {
-    CallQueue queue;
+    CallQueue &queue;
     static uint64_t idGen;
+    CDRWriter &cdrWriter;
 
 public:
-    explicit CallServiceImpl(CallQueue &queue): queue(queue) {};
+    explicit CallServiceImpl(CallQueue &queue, CDRWriter &cdrWriter): queue(queue), cdrWriter(cdrWriter) {};
 
     bool handleCall(std::string &number) override;
     void handleCleanExpired() override;
