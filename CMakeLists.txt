@@ -15,6 +15,7 @@ add_executable(CallCenter main.cpp
         src/CallServiceImpl.cpp
         src/CallQueue.cpp
         src/CDRWriterImpl.cpp
+        src/Operator.cpp
 )
 
 if(Boost_FOUND)

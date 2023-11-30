@@ -21,6 +21,7 @@ class Config{
     uint32_t qLen;
     std::time_t randomExpirationTimeMin;
     std::time_t randomExpirationTimeMax;
+    uint64_t operatorsCount;
 
 
     explicit Config(const JsonReaderImpl *jsonReader): jsonReader(*jsonReader) {};
@@ -35,6 +36,7 @@ public:
     [[nodiscard]] uint32_t getQLen() const;
     [[nodiscard]] std::time_t getRandomExpirationTimeMin() const;
     [[nodiscard]] std::time_t getRandomExpirationTimeMax() const;
+    [[nodiscard]] uint64_t getOperatorsCount() const;
 };
 
 #endif //CALLCENTER_CONFIG_H

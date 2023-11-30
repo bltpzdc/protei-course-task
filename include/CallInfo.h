@@ -95,6 +95,7 @@ struct Number {
 };
 
 enum CallStatus{READY, PROCESSING, PROCESSED, EXPIRED, DOUBLE, OVERFLOW};
+enum OperatorStatus{FREE, BUSY};
 
 struct OperatorID {
     uint64_t id;

@@ -9,6 +9,7 @@ void Config::init() {
     qLen = data["queue_length"];
     randomExpirationTimeMin = data["expire_random_min"];
     randomExpirationTimeMax = data["expire_random_max"];
+    operatorsCount = data["operators_count"];
     std::cout << qLen << " " << randomExpirationTimeMin << " " << randomExpirationTimeMax << std::endl;
 }
 
@@ -33,4 +34,8 @@ std::time_t Config::getRandomExpirationTimeMin() const {
 
 std::time_t Config::getRandomExpirationTimeMax() const {
     return randomExpirationTimeMax;
+}
+
+uint64_t Config::getOperatorsCount() const {
+    return operatorsCount;
 }

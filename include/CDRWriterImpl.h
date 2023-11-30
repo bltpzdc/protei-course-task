@@ -28,4 +28,4 @@ public:
     }
 };
 
-#endif //CALLCENTER_CDRWRITER_H
+#endif //CALLCENTER_CDRWRITERIMPL_H

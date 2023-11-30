@@ -20,10 +20,14 @@ void CallHttpController::listenGet() {
                     return crow::response(400, "Phone number can not be an empty value");
                 }
                 BOOST_LOG_TRIVIAL(info) << "Controller: got request with number " << number;
-                if (!service.handleCall(number)) {
-                    return crow::response(503, "Queue is full");
+                int result = service.handleCall(number);
+                if (result == -1) {
+                    return crow::response(403, "Duplicated call forbidden");
                 }
-                return crow::response(200, "Ok");
+                else if (result == -2) {
+                    return crow::response(503, "Queue is full");
+                } 
+                return crow::response(200, "Your id: " + std::to_string(result));
             });
 
     app.port(8080).multithreaded().run();
