@@ -23,6 +23,9 @@ int main()
     } catch (FileException &e) {
         BOOST_LOG_TRIVIAL(fatal) << e.getMessage();
         return -1;
+    } catch (nlohmann::detail::type_error e) {
+        BOOST_LOG_TRIVIAL(fatal) << "Config initialization: some values are missing in configuration file";
+        return -1;
     }
     auto *queue = new CallQueue(Config::getInstance().getQLen());
     auto *cdrWriter = new CDRWriterImpl("../cdr.txt");

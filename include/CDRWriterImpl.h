@@ -16,10 +16,12 @@ class CDRWriterImpl : public CDRWriter {
 public:
     CDRWriterImpl(const std::string &filename){
         fileStream.open(filename, std::ios::out);
-        std::cout << fileStream.fail();
     }
 
     void writeCDR(const CallInfo &callInfo) override;
+    void toLocalTime(char (&buff)[], std::time_t time);
+
+
 
     ~CDRWriterImpl() {
         if (fileStream.is_open()) {
