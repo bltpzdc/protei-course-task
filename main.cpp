@@ -6,6 +6,8 @@
 #include <chrono>
 #include <thread>
 
+#define DEFAULT_PORT 8080
+
 void print(const CallQueue *queue) {
     while (true) {
         std::cout << queue->size() << std::endl;
@@ -13,9 +15,19 @@ void print(const CallQueue *queue) {
     }
 }
 
-int main()
+int main(int argc, char **argv)
 {
+    if (argc < 2) {
+        BOOST_LOG_TRIVIAL(fatal) << "No configuration file name in console arguments";
+        return -1;
+    }
+
+    std::string configFileName = argv[1];
+    uint32_t port = argc >= 3 ? atoi(argv[2]) : DEFAULT_PORT; 
+    if (port == DEFAULT_PORT) BOOST_LOG_TRIVIAL(warning) << "Port have not written. Used default port " << DEFAULT_PORT;
+
     try {
+        Config::setFilename(argv[1]);
         Config &config = Config::getInstance();
     } catch (nlohmann::detail::parse_error e) {
         BOOST_LOG_TRIVIAL(fatal) << "Config initialization: syntax error while parsing config file";
@@ -30,7 +42,7 @@ int main()
     auto *queue = new CallQueue(Config::getInstance().getQLen());
     auto *cdrWriter = new CDRWriterImpl("../cdr.txt");
     auto *service = new CallServiceImpl(*queue, *cdrWriter);
-    auto *controller = new CallHttpController(*service);
+    auto *controller = new CallHttpController(*service, port);
     std::thread timeoutHandler(std::bind(&CallServiceImpl::handleCleanExpired, service));
     std::thread operatorsHandler(std::bind(&CallServiceImpl::handleSchedulingReady, service));
     std::thread t1(std::bind(print, queue));

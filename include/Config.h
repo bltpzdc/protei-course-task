@@ -17,6 +17,7 @@ using json = nlohmann::json;
 
 class Config{
     bool isInitialized = false;
+    static std::string filename;
     const JsonReader &jsonReader;
     uint32_t qLen;
     std::time_t randomExpirationTimeMin;
@@ -32,6 +33,7 @@ public:
     void operator=(const Config&) = delete;
 
     static Config& getInstance();
+    static void setFilename(std::string filename);
 
     [[nodiscard]] uint32_t getQLen() const;
     [[nodiscard]] std::time_t getRandomExpirationTimeMin() const;

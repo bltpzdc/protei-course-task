@@ -4,8 +4,11 @@
 
 #include "../include/Config.h"
 
+std::string Config::filename = "aboba";
+
 void Config::init() {
-    json data = jsonReader.readFile("./../config.json");
+    std::cout << Config::filename;
+    json data = jsonReader.readFile(Config::filename);
     qLen = data["queue_length"];
     randomExpirationTimeMin = data["expire_random_min"];
     randomExpirationTimeMax = data["expire_random_max"];
@@ -37,4 +40,8 @@ std::time_t Config::getRandomExpirationTimeMax() const {
 
 uint64_t Config::getOperatorsCount() const {
     return operatorsCount;
+}
+
+void Config::setFilename(std::string filename) {
+    Config::filename = std::move(filename);
 }
