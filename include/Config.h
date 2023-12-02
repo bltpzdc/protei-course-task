@@ -16,13 +16,14 @@
 using json = nlohmann::json;
 
 class Config{
-    bool isInitialized = false;
+    static Config *instance; 
     static std::string filename;
     const JsonReader &jsonReader;
     uint32_t qLen;
     std::time_t randomExpirationTimeMin;
     std::time_t randomExpirationTimeMax;
     uint64_t operatorsCount;
+    uint64_t nextUpdateTime;
 
 
     explicit Config(const JsonReaderImpl *jsonReader): jsonReader(*jsonReader) {};
@@ -33,12 +34,14 @@ public:
     void operator=(const Config&) = delete;
 
     static Config& getInstance();
+    static void update();
     static void setFilename(std::string filename);
 
     [[nodiscard]] uint32_t getQLen() const;
     [[nodiscard]] std::time_t getRandomExpirationTimeMin() const;
     [[nodiscard]] std::time_t getRandomExpirationTimeMax() const;
     [[nodiscard]] uint64_t getOperatorsCount() const;
+    [[nodiscard]] uint64_t getNextUpdateTime() const;
 };
 
 #endif //CALLCENTER_CONFIG_H

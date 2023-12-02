@@ -5,7 +5,7 @@
 #include "../include/CallQueue.h"
 
 bool CallQueue::tryPush(CallInfo &callInfo) {
-    if (queue->size() >= maxSize) return false;
+    if (queue->size() >= Config::getInstance().getQLen()) return false;
     callInfo.status = CallStatus::READY;
     queue->push_back(callInfo);
     return true;

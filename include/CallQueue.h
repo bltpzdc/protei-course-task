@@ -10,14 +10,17 @@
 #include "CallInfo.h"
 
 class CallQueue {
-    uint32_t maxSize;
     std::list<CallInfo> *queue;
 
 public:
-    explicit CallQueue(uint32_t maxSize): maxSize(maxSize) {
+    CallQueue() {
         queue = new std::list<CallInfo>();
     }
 
+    ~CallQueue() {
+        delete queue;
+    }
+    
     bool tryPush(CallInfo &callInfo);
     uint32_t size() const;
     CallInfo& pop();

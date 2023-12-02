@@ -26,6 +26,7 @@ int CallServiceImpl::handleCall(std::string &number) {
                                                                                    "due to overflow";
         callInfo.endDt = callInfo.incomeDt;
         cdrWriter.writeCDR(callInfo);
+        uniqueNumbers.erase(std::hash<std::string>{}(number));
         return -2;
     } else {
         BOOST_LOG_TRIVIAL(info) << "Service: number " << callInfo.number.number << " was added to queue";
@@ -70,7 +71,6 @@ void CallServiceImpl::handleSchedulingReady() {
             }
             if (oper->getStatus() == OperatorStatus::FREE) {
                 if (queue.size() > 0) {
-                    //std::cout << 1 << std::endl;
                     CallInfo *callInfo = &queue.pop();
                     callInfo->status = CallStatus::PROCESSING;
                     callInfo->operatorId = oper->getId();

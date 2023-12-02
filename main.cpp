@@ -10,8 +10,15 @@
 
 void print(const CallQueue *queue) {
     while (true) {
-        std::cout << queue->size() << std::endl;
+        std::cout << queue->size() << "/" << Config::getInstance().getQLen() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    }
+}
+
+void update() {
+    while (true) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(Config::getInstance().getNextUpdateTime() * 1000));
+        Config::update();
     }
 }
 
@@ -39,15 +46,19 @@ int main(int argc, char **argv)
         BOOST_LOG_TRIVIAL(fatal) << "Config initialization: some values are missing in configuration file";
         return -1;
     }
-    auto *queue = new CallQueue(Config::getInstance().getQLen());
+    Config::update();
+    Config::update();
+    auto *queue = new CallQueue();
     auto *cdrWriter = new CDRWriterImpl("../cdr.txt");
     auto *service = new CallServiceImpl(*queue, *cdrWriter);
     auto *controller = new CallHttpController(*service, port);
     std::thread timeoutHandler(std::bind(&CallServiceImpl::handleCleanExpired, service));
     std::thread operatorsHandler(std::bind(&CallServiceImpl::handleSchedulingReady, service));
     std::thread t1(std::bind(print, queue));
+    std::thread t2(update);
     controller->listenGet();
     t1.detach();
+    t2.detach();
     timeoutHandler.detach();
     operatorsHandler.detach();
     return 0;
