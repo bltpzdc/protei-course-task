@@ -1,0 +1,8 @@
+{
+    "queue_length": 3,
+    "expire_random_max": 20, 
+    "operators_count": 2, 
+    "next_update_time": 20,
+    "cdr_file": "../cdr.txt"
+}
+  

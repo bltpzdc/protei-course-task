@@ -14,6 +14,12 @@ void Config::init() {
     randomExpirationTimeMax = data["expire_random_max"];
     operatorsCount = data["operators_count"];
     nextUpdateTime = data["next_update_time"];
+    try {
+        cdrFile = data["cdr_file"];
+    } catch (std::exception e) {
+        BOOST_LOG_TRIVIAL(warning) << "Config: cdr file name not found";
+        cdrFile = "";
+    }
 }
 
 void Config::update() {
@@ -30,6 +36,13 @@ void Config::update() {
     newInstance = tmp;
     delete newInstance;
     BOOST_LOG_TRIVIAL(info) << "Config: updated successfully";
+}
+
+void Config::clear() {
+    if (instance) {
+        delete instance;
+        instance = nullptr;
+    }
 }
 
 Config& Config::getInstance(){
@@ -60,6 +73,10 @@ uint64_t Config::getOperatorsCount() const {
 
 uint64_t Config::getNextUpdateTime() const {
     return nextUpdateTime;
+}
+
+std::string Config::getCDRFile() const {
+    return cdrFile;
 }
 
 void Config::setFilename(std::string filename) {
